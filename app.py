@@ -8,7 +8,45 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, matthews_corrcoef, roc_auc_score
 
+import seaborn as sns
+import matplotlib.pyplot as plt
+labels = [
+    "Accuracy",
+    "Precision",
+    "Recall",
+    "F1-Score",
+    "AUC Score",
+    "Matthews Corr (MCC)"
+]
 
+def model_performance_analysis(X_test,y_test,y_pred):
+    accuracy=accuracy_score(y_test, y_pred)
+    precision=precision_score(y_test, y_pred)
+    recall=recall_score(y_test, y_pred)
+    f1=f1_score(y_test, y_pred)
+    
+    y_probs = lr.predict_proba(X_test)[:, 1]
+    auc = roc_auc_score(y_test, y_probs)
+    
+    mcc=matthews_corrcoef(y_test, y_pred)
+    
+    score_matrix = [accuracy, precision, recall, f1, auc, mcc]
+    df_scores = pd.DataFrame({"Score": score_matrix}, index=labels)
+    print(df_scores.round(5))
+    
+    cm = confusion_matrix(y_test, y_pred)
+    
+    sns.heatmap(
+        cm,
+        annot=True,
+        fmt='d',
+        cmap='Blues'
+    )
+    
+    plt.xlabel("Predicted")
+    plt.ylabel("Actual")
+    plt.title("Confusion Matrix")
+    plt.show()
 
 
 model_map = {

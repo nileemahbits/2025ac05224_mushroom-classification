@@ -4,7 +4,7 @@ import streamlit as st
 import pandas as pd
 from io import StringIO
 
-from sklearn.preprocessing import LabelEncoder, StandardScaler
+from sklearn.preprocessing import LabelEncoder, StandardScaler,OneHotEncoder
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, matthews_corrcoef, roc_auc_score,confusion_matrix
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -80,12 +80,16 @@ if uploaded_file is not None:
 
     X = df.drop('class', axis=1)
     y_test = df['class']
-    X = pd.get_dummies(X, drop_first=True)
+    encoder = OneHotEncoder(
+    handle_unknown="ignore",
+    sparse_output=False
+    )
+    #X = pd.get_dummies(X, drop_first=True)
+    X_test = encoder.transform(X)
 
-    X_test = X
 
     le = LabelEncoder()
-    y_test = le.fit_transform(y_test)
+    y_test = le.transform(y_test)
 
 
 

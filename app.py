@@ -15,7 +15,7 @@ model_map = {
     "Logistic Regression": "logistic_regression_model.pkl",
     "Decision Tree": "decision_tree_model.pkl",
     "kNN": "knn_model.pkl",
-    "Naive Bayes": "naive_bayes_model.pkl",
+    "Naive Bayes": "naive_bayes_gaussian_model.pkl",
     "Random Forest": "random_forest_model.pkl"
 }
  

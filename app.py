@@ -11,22 +11,6 @@ import matplotlib.pyplot as plt
 
 
 def model_performance_analysis(score_matrix,cm):
-    st.subheader("Confusion Matrix")
-    class_labels = ["Edible", "Poisonous"]
-    fig, ax = plt.subplots(figsize=(5, 4))
-    sns.heatmap(
-        cm,  
-        annot=True,
-        fmt="d",
-        cmap="Blues",
-        xticklabels=class_labels,
-        yticklabels=class_labels,
-        ax=ax,
-    )
-    plt.xlabel("Predicted")
-    plt.ylabel("Actual")
-    st.pyplot(fig)
-
 
     st.subheader("Performance Scores")
     labels = [
@@ -44,6 +28,25 @@ def model_performance_analysis(score_matrix,cm):
 
     # Render a clean, static HTML table in Streamlit
     st.table(df_scores)
+
+    st.subheader("Confusion Matrix")
+    class_labels = ["Edible", "Poisonous"]
+    fig, ax = plt.subplots(figsize=(5, 4))
+    sns.heatmap(
+        cm,  
+        annot=True,
+        fmt="d",
+        cmap="Blues",
+        xticklabels=class_labels,
+        yticklabels=class_labels,
+        ax=ax,
+    )
+    plt.xlabel("Predicted")
+    plt.ylabel("Actual")
+    st.pyplot(fig)
+
+
+    
 
 model_map = {
     "Logistic Regression": "logistic_regression_model.pkl",

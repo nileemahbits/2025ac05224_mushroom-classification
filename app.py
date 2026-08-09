@@ -80,18 +80,15 @@ if uploaded_file is not None:
 
     X = df.drop('class', axis=1)
     y_test = df['class']
-    encoder = OneHotEncoder(
-    handle_unknown="ignore",
-    sparse_output=False
-    )
-    #X = pd.get_dummies(X, drop_first=True)
-    X_test = encoder.transform(X)
+    
+    with open('./model/encoder.pkl', 'rb') as f:
+        encoder = pickle.load(f)
+        X_test = encoder.transform(X)
 
-
-    le = LabelEncoder()
-    y_test = le.transform(y_test)
-
-
+    with open('./model/label_encoder.pkl', 'rb') as f:
+        le = pickle.load(f)
+        y_test = le.transform(y_test)
+    
 
 if X_test is not None:
     option = st.selectbox(

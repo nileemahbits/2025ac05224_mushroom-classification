@@ -4,12 +4,11 @@ import streamlit as st
 import pandas as pd
 from io import StringIO
 
-from sklearn.preprocessing import LabelEncoder
-from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, matthews_corrcoef, roc_auc_score
-
+from sklearn.preprocessing import LabelEncoder, StandardScaler
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, matthews_corrcoef, roc_auc_score,confusion_matrix
 import seaborn as sns
 import matplotlib.pyplot as plt
+
 labels = [
     "Accuracy",
     "Precision",
@@ -19,15 +18,12 @@ labels = [
     "Matthews Corr (MCC)"
 ]
 
-def model_performance_analysis(X_test,y_test,y_pred):
+def model_performance_analysis(y_test,y_pred,y_probs):
     accuracy=accuracy_score(y_test, y_pred)
     precision=precision_score(y_test, y_pred)
     recall=recall_score(y_test, y_pred)
-    f1=f1_score(y_test, y_pred)
-    
-    y_probs = lr.predict_proba(X_test)[:, 1]
-    auc = roc_auc_score(y_test, y_probs)
-    
+    f1=f1_score(y_test, y_pred)     
+    auc = roc_auc_score(y_test, y_probs)    
     mcc=matthews_corrcoef(y_test, y_pred)
     
     score_matrix = [accuracy, precision, recall, f1, auc, mcc]
@@ -35,19 +31,20 @@ def model_performance_analysis(X_test,y_test,y_pred):
     print(df_scores.round(5))
     
     cm = confusion_matrix(y_test, y_pred)
-    
+    class_labels = ["Edible", "Poisonous"]
     sns.heatmap(
         cm,
         annot=True,
         fmt='d',
-        cmap='Blues'
+        cmap='Blues',
+        xticklabels=class_labels, 
+        yticklabels=class_labels,
     )
     
     plt.xlabel("Predicted")
     plt.ylabel("Actual")
     plt.title("Confusion Matrix")
     plt.show()
-
 
 model_map = {
     "Logistic Regression": "logistic_regression_model.pkl",
@@ -116,15 +113,6 @@ if X_test is not None:
 st.write("## Model Evaluation Metrics")
 
 if y_predict is not None:
-   
-    ascore=accuracy_score(y_test, y_predict)
-    pscore=precision_score(y_test, y_predict)
-    rscore=recall_score(y_test, y_predict)
-    f1=f1_score(y_test, y_predict)
-
-    st.write(f"Accuracy Score: {ascore}")
-    st.write(f"Precision Score: {pscore}")
-    st.write(f"Recall Score: {rscore}")
-    st.write(f"F1 Score: {f1}")
+    model_performance_analysis(y_test, y_predict, loaded_model.predict_proba(X_test)[:, 1])
 else:
     st.write("Please upload a test data file and select a model to see evaluation metrics.")

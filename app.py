@@ -11,48 +11,39 @@ import matplotlib.pyplot as plt
 
 
 def model_performance_analysis(score_matrix,cm):
-    col1, col2 = st.columns(2)
-    with col1:
-        st.subheader("Confusion Matrix")
+    st.subheader("Confusion Matrix")
+    class_labels = ["Edible", "Poisonous"]
+    fig, ax = plt.subplots(figsize=(5, 4))
+    sns.heatmap(
+        cm,  
+        annot=True,
+        fmt="d",
+        cmap="Blues",
+        xticklabels=class_labels,
+        yticklabels=class_labels,
+        ax=ax,
+    )
+    plt.xlabel("Predicted")
+    plt.ylabel("Actual")
+    st.pyplot(fig)
 
-        # Define custom labels
-        class_labels = ["Edible", "Poisonous"]
 
-        fig, ax = plt.subplots(figsize=(5, 4))
-        sns.heatmap(
-            cm,  
-            annot=True,
-            fmt="d",
-            cmap="Blues",
-            xticklabels=class_labels,
-            yticklabels=class_labels,
-            ax=ax,
-        )
+    st.subheader("Performance Scores")
+    labels = [
+        "Accuracy",
+        "Precision",
+        "Recall",
+        "F1-Score",
+        "AUC Score",
+        "Matthews Corr (MCC)",
+    ]
 
-        plt.xlabel("Predicted")
-        plt.ylabel("Actual")
+    # Convert to a DataFrame and format to 4 decimal places
+    df_scores = pd.DataFrame({"Score": score_matrix}, index=labels)
+    df_scores["Score"] = df_scores["Score"].map("{:.4f}".format)
 
-     
-        st.pyplot(fig)
-
-    # --- COLUMN 2: METRICS TABLE ---
-    with col2:
-        st.subheader("Performance Scores")
-        labels = [
-            "Accuracy",
-            "Precision",
-            "Recall",
-            "F1-Score",
-            "AUC Score",
-            "Matthews Corr (MCC)",
-        ]
-
-        # Convert to a DataFrame and format to 4 decimal places
-        df_scores = pd.DataFrame({"Score": score_matrix}, index=labels)
-        df_scores["Score"] = df_scores["Score"].map("{:.4f}".format)
-
-        # Render a clean, static HTML table in Streamlit
-        st.table(df_scores)
+    # Render a clean, static HTML table in Streamlit
+    st.table(df_scores)
 
 model_map = {
     "Logistic Regression": "logistic_regression_model.pkl",
@@ -118,7 +109,7 @@ if X_test is not None:
         st.write(f"Predictions: {y_predict}")
 
 
-st.write("## Model Evaluation Metrics")
+st.write(f"## {option} Evaluation Metrics")
 
 if y_predict is not None:
 

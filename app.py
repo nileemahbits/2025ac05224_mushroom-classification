@@ -9,42 +9,50 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-labels = [
-    "Accuracy",
-    "Precision",
-    "Recall",
-    "F1-Score",
-    "AUC Score",
-    "Matthews Corr (MCC)"
-]
 
-def model_performance_analysis(y_test,y_pred,y_probs):
-    accuracy=accuracy_score(y_test, y_pred)
-    precision=precision_score(y_test, y_pred)
-    recall=recall_score(y_test, y_pred)
-    f1=f1_score(y_test, y_pred)     
-    auc = roc_auc_score(y_test, y_probs)    
-    mcc=matthews_corrcoef(y_test, y_pred)
-    
-    score_matrix = [accuracy, precision, recall, f1, auc, mcc]
-    df_scores = pd.DataFrame({"Score": score_matrix}, index=labels)
-    print(df_scores.round(5))
-    
-    cm = confusion_matrix(y_test, y_pred)
-    class_labels = ["Edible", "Poisonous"]
-    sns.heatmap(
-        cm,
-        annot=True,
-        fmt='d',
-        cmap='Blues',
-        xticklabels=class_labels, 
-        yticklabels=class_labels,
-    )
-    
-    plt.xlabel("Predicted")
-    plt.ylabel("Actual")
-    plt.title("Confusion Matrix")
-    plt.show()
+def model_performance_analysis(score_matrix,cm):
+    col1, col2 = st.columns(2)
+    with col1:
+        st.subheader("Confusion Matrix")
+
+        # Define custom labels
+        class_labels = ["Edible", "Poisonous"]
+
+        fig, ax = plt.subplots(figsize=(5, 4))
+        sns.heatmap(
+            cm,  
+            annot=True,
+            fmt="d",
+            cmap="Blues",
+            xticklabels=class_labels,
+            yticklabels=class_labels,
+            ax=ax,
+        )
+
+        plt.xlabel("Predicted")
+        plt.ylabel("Actual")
+
+     
+        st.pyplot(fig)
+
+    # --- COLUMN 2: METRICS TABLE ---
+    with col2:
+        st.subheader("Performance Scores")
+        labels = [
+            "Accuracy",
+            "Precision",
+            "Recall",
+            "F1-Score",
+            "AUC Score",
+            "Matthews Corr (MCC)",
+        ]
+
+        # Convert to a DataFrame and format to 4 decimal places
+        df_scores = pd.DataFrame({"Score": score_matrix}, index=labels)
+        df_scores["Score"] = df_scores["Score"].map("{:.4f}".format)
+
+        # Render a clean, static HTML table in Streamlit
+        st.table(df_scores)
 
 model_map = {
     "Logistic Regression": "logistic_regression_model.pkl",
@@ -113,6 +121,19 @@ if X_test is not None:
 st.write("## Model Evaluation Metrics")
 
 if y_predict is not None:
-    model_performance_analysis(y_test, y_predict, loaded_model.predict_proba(X_test)[:, 1])
+
+    accuracy=accuracy_score(y_test, y_predict)
+    precision=precision_score(y_test, y_predict)
+    recall=recall_score(y_test, y_predict)
+    f1=f1_score(y_test, y_predict)     
+    y_probs = loaded_model.predict_proba(X_test)[:, 1]
+    auc = roc_auc_score(y_test, y_probs)    
+    mcc=matthews_corrcoef(y_test, y_predict)
+    
+    score_matrix = [accuracy, precision, recall, f1, auc, mcc]
+    cm = confusion_matrix(y_test, y_predict)
+
+    model_performance_analysis(score_matrix, cm)
+   
 else:
     st.write("Please upload a test data file and select a model to see evaluation metrics.")

@@ -19,6 +19,8 @@ The following models were trained and evaluated on this dataset:
 - Naive Bayes (Gaussian)
 - Random Forest (Ensemble)
 
+
+
 # Comparison Table with the evaluation metrics calculated for all the models
 
 | ML Model Name       | Accuracy | AUC     | Precision | Recall  | F1      | MCC     |
@@ -29,6 +31,8 @@ The following models were trained and evaluated on this dataset:
 | Naive Bayes         | 0.9619   | 0.9951  | 0.9287    | 0.9975  | 0.9618  | 0.9262  |
 | Random Forest       | 1.0000   | 1.0000  | 1.0000    | 1.0000  | 1.0000  | 1.0000  |
 
+
+
 # Observations on model performance
 
 | ML Model Name       | Observation about model performance |
@@ -37,8 +41,7 @@ The following models were trained and evaluated on this dataset:
 | Decision Tree       | Also achieved perfect metrics, showing that the tree can perfectly split the categorical feature space for this dataset. |
 | kNN                 | Near-perfect performance with a slightly lower AUC, suggesting it is strong but less calibrated on probability estimates than the tree-based models. |
 | Naive Bayes         | Performed worst among the evaluated models due to the strong independence assumption, which is not fully satisfied by the dataset's categorical features. |
-| Random Forest       | Achieved perfect metrics and is the preferred overall winner because the ensemble approach is generally more robust and reliable than a single decision tree. |
+| Random Forest (Ensemble)| Achieved perfect metrics and is the preferred overall winner because the ensemble approach is generally more robust and reliable than a single decision tree. |
+| Overall Winner for the dataset?   | Random Forest is the overall winner for this dataset because it combines many trees to reduce the risk of overfitting and provides stable, perfect performance on the evaluated test set.|
 
-# Overall Winner
 
-Random Forest is the overall winner for this dataset because it combines many trees to reduce the risk of overfitting and provides stable, perfect performance on the evaluated test set.

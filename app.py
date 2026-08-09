@@ -90,7 +90,6 @@ if uploaded_file is not None:
 
 
 if X_test is not None:
-    
     option = st.selectbox(
         "Select Model",
         ("Logistic Regression", "Decision Tree", "kNN", "Naive Bayes","Random Forest")

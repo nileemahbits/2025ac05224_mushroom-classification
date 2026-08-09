@@ -90,7 +90,7 @@ if uploaded_file is not None:
 
 
 if X_test is not None:
-
+    
     option = st.selectbox(
         "Select Model",
         ("Logistic Regression", "Decision Tree", "kNN", "Naive Bayes","Random Forest")
@@ -112,9 +112,9 @@ if X_test is not None:
         st.write(f"Predictions: {y_predict}")
 
 
-st.write(f"## {option} Evaluation Metrics")
 
 if y_predict is not None:
+    st.write(f"## {option} Evaluation Metrics")
 
     accuracy=accuracy_score(y_test, y_predict)
     precision=precision_score(y_test, y_predict)

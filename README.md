@@ -25,10 +25,10 @@ The following models were trained and evaluated on this dataset:
 
 | ML Model Name       | Accuracy | AUC     | Precision | Recall  | F1      | MCC     |
 |---------------------|----------|---------|-----------|---------|---------|---------|
-| Logistic Regression | 1.0000   | 0.9994  | 1.0000    | 1.0000  | 1.0000  | 1.0000  |
-| kNN                 | 0.9988   | 0.9289  | 1.0000    | 0.9975  | 0.9987  | 0.9975  |
+| Logistic Regression | 1.0000   | 1.0000  | 1.0000    | 1.0000  | 1.0000  | 1.0000  |
+| kNN                 | 0.9988   | 1.0000  | 1.0000    | 0.9974  | 0.9987  | 0.9975  |
 | Decision Tree       | 1.0000   | 1.0000  | 1.0000    | 1.0000  | 1.0000  | 1.0000  |
-| Naive Bayes         | 0.9619   | 0.9951  | 0.9287    | 0.9975  | 0.9618  | 0.9262  |
+| Naive Bayes         | 0.9458   | 0.9972  | 0.9901    | 0.8966  | 0.9410  | 0.8949  |
 | Random Forest       | 1.0000   | 1.0000  | 1.0000    | 1.0000  | 1.0000  | 1.0000  |
 
 
@@ -37,11 +37,11 @@ The following models were trained and evaluated on this dataset:
 
 | ML Model Name       | Observation about model performance |
 |---------------------|-------------------------------------|
-| Logistic Regression | Achieved perfect classification metrics on the test set with almost optimal AUC, indicating the encoded features are linearly separable after preprocessing. |
-| Decision Tree       | Also achieved perfect metrics, showing that the tree can perfectly split the categorical feature space for this dataset. |
-| kNN                 | Near-perfect performance with a slightly lower AUC, suggesting it is strong but less calibrated on probability estimates than the tree-based models. |
-| Naive Bayes         | Performed worst among the evaluated models due to the strong independence assumption, which is not fully satisfied by the dataset's categorical features. |
-| Random Forest (Ensemble)| Achieved perfect metrics and is the preferred overall winner because the ensemble approach is generally more robust and reliable than a single decision tree. |
-| Overall Winner for the dataset?   | Random Forest is the overall winner for this dataset because it combines many trees to reduce the risk of overfitting and provides stable, perfect performance on the evaluated test set.|
+| Logistic Regression | Achieved perfect classification metrics on the test set with a perfect AUC, confirming that the one-hot encoded and scaled features are highly separable for this dataset. Training is efficient (~0.21s). No overfitting observed (0.00 gap).|
+| Decision Tree       | Also achieved perfect metrics, indicating the tree can fully partition the categorical feature space with no misclassifications on this test split. Extremely fast (~0.03s) and generates clear logical rules. No overfitting observed(0.00 gap).|
+| kNN                 | Delivered near-perfect accuracy and perfect precision, with only a single false negative causing recall to drop slightly below 1.0. Fastest training time (~0.007s).Generalizes well with a negligible gap (0.0009). |
+| Naive Bayes         | Showed the weakest overall performance, with lower recall and F1 than the tree-based models, reflecting its conditional independence assumptions on categorical features. Fast training (~0.018s) with a minor generalization gap (0.0086). |
+| Random Forest (Ensemble)| Achieved perfect classification metrics and is the strongest candidate for deployment, offering the robustness of an ensemble while matching the decision tree’s performance. Slowest training (~0.31s) due to complexity. No overfitting observed(0.00 gap).|
+| **Overall Winner for the dataset?** | Logistic Regression and Decision Trees models provide a 100% reliable classification for this dataset with zero evidence of overfitting.Overall winner will be , the **Decision Tree** because it is optimal as it matches perfect accuracy with high speed and human-readable logic.|
 
 

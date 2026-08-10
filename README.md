@@ -16,7 +16,7 @@ The following models were trained and evaluated on this dataset:
 - Logistic Regression
 - k-Nearest Neighbors (kNN)
 - Decision Tree
-- Naive Bayes (Gaussian)
+- Naive Bayes (Multinomial)
 - Random Forest (Ensemble)
 
 

@@ -4,7 +4,7 @@ The task is to build a machine learning classifier that predicts whether a mushr
 
 # b. Dataset description
 
-The dataset is the Mushroom Classification dataset from Kaggle / UCI Machine Learning Repository. It contains 8,124 mushroom samples with 22 categorical features plus the target label. Each instance is labeled as either edible (e) or poisonous (p). The dataset is nearly balanced with 4,208 edible and 3,916 poisonous examples. Features describe physical mushroom characteristics such as cap shape, cap color, bruises, odor, gill size, stalk shape, veil color, ring type, spore print color, population, and habitat.
+The dataset is the Mushroom Classification dataset from Kaggle Machine Learning Repository(https://www.kaggle.com/datasets/uciml/mushroom-classification). It contains 8,124 mushroom samples with 22 categorical features plus the target label. Each instance is labeled as either edible (e) or poisonous (p). The dataset is nearly balanced with 4,208 edible and 3,916 poisonous examples. Features describe physical mushroom characteristics such as cap shape, cap color, bruises, odor, gill size, stalk shape, veil color, ring type, spore print color, population, and habitat.
 
 # c. Github Repository Link
 

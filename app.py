@@ -84,8 +84,8 @@ if uploaded_file is not None:
 
 if X_raw is not None:
     option = st.selectbox(
-        "Select Model",
-        ("Logistic Regression", "Decision Tree", "kNN", "Naive Bayes","Random Forest")
+        "Select ML classification Model",
+        ("Decision Tree","Logistic Regression","Random Forest", "kNN", "Naive Bayes",)
     )
 
     # Display the selected option

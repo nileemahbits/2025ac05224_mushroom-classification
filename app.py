@@ -77,7 +77,7 @@ if uploaded_file is not None:
     X_raw = df.drop('class', axis=1)
     y_test = df['class']
 
-    with open('./trained_models/label_encoder.pkl', 'rb') as f:
+    with open('./model/trained_models/label_encoder.pkl', 'rb') as f:
         le = pickle.load(f)
         y_test = le.transform(y_test)
     
@@ -92,18 +92,18 @@ if X_raw is not None:
     st.write("You selected:", option)
 
     if option in ("Logistic Regression", "kNN", "Naive Bayes"):
-        with open('./trained_models/encoder.pkl', 'rb') as f:
+        with open('./model/trained_models/encoder.pkl', 'rb') as f:
             encoder = pickle.load(f)
             X_test = encoder.transform(X_raw)
 
         if option in ("Logistic Regression", "kNN"):
-            with open('./trained_models/scaler.pkl', 'rb') as f:
+            with open('./model/trained_models/scaler.pkl', 'rb') as f:
                 scaler = pickle.load(f)
                 X_test = scaler.transform(X_test)
     else:
         X_test = X_raw.apply(lambda x: x.astype('category').cat.codes)
      
-    filename = "./trained_models/" + model_map.get(option)
+    filename = "./model/trained_models/" + model_map.get(option)
 
     with open(filename, "rb") as file:
         loaded_model = pickle.load(file)

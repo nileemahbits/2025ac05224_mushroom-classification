@@ -135,14 +135,14 @@ if y_predict is not None:
     except Exception:
         pass
 
-    output_path = "./predictions.csv"
+    output_path = "./" + option + "_predictions.csv"
     df.to_csv(output_path, index=False)
 
     csv = df.to_csv(index=False)
     st.download_button(
         label="Download predictions CSV",
         data=csv,
-        file_name="mushroom_predictions.csv",
+        file_name=option + "_predictions.csv",
         mime="text/csv",
     )
 

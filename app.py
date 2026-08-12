@@ -145,7 +145,7 @@ if y_predict is not None:
         file_name="mushroom_predictions.csv",
         mime="text/csv",
     )
-    st.write(f"Saved predictions file to `{output_path}`")
+
     ##########################################################################
    
 else:

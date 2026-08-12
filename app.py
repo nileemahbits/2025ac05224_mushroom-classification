@@ -126,6 +126,27 @@ if y_predict is not None:
     cm = confusion_matrix(y_test, y_predict)
 
     model_performance_analysis(score_matrix, cm)
+
+    ##########################################################################
+    # Add predictions back to the original dataframe and save for download
+    df["y_predict"] = y_predict
+    try:
+        df["predicted_class"] = le.inverse_transform(y_predict)
+    except Exception:
+        pass
+
+    output_path = "./predictions.csv"
+    df.to_csv(output_path, index=False)
+
+    csv = df.to_csv(index=False)
+    st.download_button(
+        label="Download predictions CSV",
+        data=csv,
+        file_name="mushroom_predictions.csv",
+        mime="text/csv",
+    )
+    st.write(f"Saved predictions file to `{output_path}`")
+    ##########################################################################
    
 else:
     st.write("Please upload a test data file and select a model to see evaluation metrics.")

@@ -45,7 +45,7 @@ The models were evaluated using:
 
 Both training and testing performance were considered to identify generalization and possible overfitting.
 
-# Comparison Table with the evaluation metrics calculated for all the models
+## Comparison Table with the evaluation metrics calculated for all the models
 The following table summarizes the test-set performance, which is the most important measure for comparing how well the models generalize to unseen data
 
 | ML Model Name       | Accuracy | AUC     | Precision | Recall  | F1      | MCC     |
@@ -61,7 +61,7 @@ The following table summarizes the test-set performance, which is the most impor
 **Training Time Observation**: kNN required the least measured training time, followed by Naive Bayes and Decision Tree. Random Forest required more training time because it builds an ensemble of multiple decision trees. Logistic Regression had the highest measured training time among the five models in this particular experiment.
 
 
-# Observations on model performance
+## Observations on model performance
 
 | ML Model Name       | Observation about model performance |
 |---------------------|-------------------------------------|
@@ -72,7 +72,7 @@ The following table summarizes the test-set performance, which is the most impor
 | Random Forest (Ensemble)| Random Forest achieved perfect scores across every evaluated metric. As an ensemble method, it combines predictions from multiple decision trees and is generally capable of modeling complex relationships in tabular datasets. In this experiment, it performed perfectly on both the training and test sets.|
 
 
-**Overall Winner for the dataset?** 
+## Overall Winner for the dataset?
 
  **Decision Tree** 
  - The three top-performing models — Logistic Regression, Decision Tree, and Random Forest — achieved identical perfect results on the test set, with 1.00 Accuracy, AUC, Precision, Recall, F1-Score, and MCC.

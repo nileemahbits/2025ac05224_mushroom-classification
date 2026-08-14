@@ -1,3 +1,5 @@
+# Mushroom Classification
+
 # a. Problem statement
 
 The task is to build a machine learning classifier that predicts whether a mushroom is edible or poisonous using the Mushroom Classification dataset. The goal is to compare several supervised learning algorithms and select the best-performing model for this binary classification problem.
@@ -43,7 +45,18 @@ The models were evaluated using:
 - F1-Score
 - Matthews Correlation Coefficient (MCC)
 
-Both training and testing performance were considered to identify generalization and possible overfitting.
+Since the dataset primarily contains categorical features, CategoricalNB
+would generally be the most suitable choice. However, as it was not available
+among the assignment's model options, the choice was between GaussianNB
+and MultinomialNB. GaussianNB is better suited for continuous numerical
+features, while MultinomialNB works well with discrete, non-negative features
+such as counts or frequencies. Therefore, the categorical features were one-hot
+encoded into binary, non-negative features, making MultinomialNB the more
+appropriate choice among the available options.
+
+The models were evaluated using: Accuracy , AUC ,Precision , Recall , F1-
+Score , Matthews Correlation Coefficient (MCC). Both training and testing
+performance were considered to identify generalization and possible overfitting.
 
 ## Comparison Table with the evaluation metrics calculated for all the models
 The following table summarizes the test-set performance, which is the most important measure for comparing how well the models generalize to unseen data
